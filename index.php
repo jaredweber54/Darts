@@ -44,7 +44,7 @@
             $looser = mysqli_fetch_array($db_looser);           //gets looser of last game
             array_push($array, $looser[0]);
             $_SESSION['order'] = $array;
-            header("Location: gameHome.html");
+            header("Location: gameHome.php");
             
         }
      

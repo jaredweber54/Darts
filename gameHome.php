@@ -8,18 +8,26 @@
         <script src="calculate.js"></script>
     </head>
     <body>
+    <input type="text" id="txt" name="text" class="text">
     <button class="btn1" id="btn1" onclick="calc();"> </button>
-    <input type="text" name="text" class="text">
-
     </body>
 
      <?php
 
     session_start();
     $arr = $_SESSION['order'];
-    echo("Order:" . "<br>");
+    echo("<br>" ."Order:" . "<br>");
     foreach($arr as $i){
         echo($i . "<br>");
     }
     ?> 
+    
+    <p id = "scores"> </p>
+    <br>
+    <p id = "total_score"> </p>
+
+    <?php
+
+
+    ?>
 </html>
