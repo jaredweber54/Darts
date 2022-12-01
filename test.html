@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Jared">
+    <link rel="stylesheet" href="styles.css">
+    <title>Message Input</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- https://developers.google.com/speed/libraries#jquery -->
+</head>
+<body>
+    <h1>Game Home</h1>
+    <p id="para"></p>
+    
+
+    <form>
+        <input type="text" id="txt" name="text1" class="text">
+        <input type="text" id="txt" name="text2" class="text">
+        <input type="text" id="txt" name="text3" class="text">
+        <input type="text" id="txt" name="text4" class="text">
+        <input type="text" id="txt" name="text5" class="text">
+        <input type="text" id="txt" name="text6" class="text">
+        <input type="text" id="txt" name="text7" class="text">
+        <br>
+        <input type="submit" name = "btn1" class="btn"value="Submit">
+        <!-- <input type="submit" name = "btn2" class="btn"value="Submit">
+        <input type="submit" name = "btn3"class="btn"value="Submit">
+        <input type="submit" name = "btn4"class="btn"value="Submit">
+        <input type="submit" name = "btn5"class="btn"value="Submit">
+        <input type="submit" name = "btn6"class="btn"value="Submit">
+        <input type="submit" name = "btn7"class="btn"value="Submit"> -->
+    </form>
+
+    <br>
+    <p id = "score"></p>
+
+  
+
+    <script>
+        $("form").submit(
+            function(e){
+                // prevent jQuery refresh the whole page after appending the new element. See the following page for more detail
+                // https://stackoverflow.com/questions/31357050/jquerypage-refreshes-after-appending-html-with-html
+                e.preventDefault();
+                
+                $.post("calculate.php", $(this).serialize(),
+                    function(data, status){ // callback function
+                        $("#score").text(data);                  //TODO fix so you are able to <br> line
+                    }
+                );
+            }
+        );
+
+       function load(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("para").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "test.php", true);
+        xmlhttp.send();
+        
+
+       }
+       setInterval(load, 500);
+
+    </script>
+</body>
+</html>

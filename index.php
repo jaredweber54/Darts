@@ -9,11 +9,11 @@
     <body>
         <h1>Who's Playing?</h1>
         <form method="POST">
-        <input type="checkbox" name="check_list[]" value="Jerry"><label>Jerry</label><br/>
-        <input type="checkbox" name="check_list[]" value="Trev"><label>Trev</label><br/>
-        <input type="checkbox" name="check_list[]" value="Mas"><label>Mas</label><br/>
-        <input type="checkbox" name="check_list[]" value="Benni"><label>Benni</label><br/>
-        <input type="checkbox" name="check_list[]" value="Swags"><label>Swags</label><br/>
+        <input type="checkbox" name="check_list[]" value="Jerry"><label>JERRY</label><br/>
+        <input type="checkbox" name="check_list[]" value="Trev"><label>TREV</label><br/>
+        <input type="checkbox" name="check_list[]" value="Mas"><label>MAS</label><br/>
+        <input type="checkbox" name="check_list[]" value="Benni"><label>BENNI</label><br/>
+        <input type="checkbox" name="check_list[]" value="Swags"><label>SWAGS</label><br/>
         <br>
         <input type="submit" name="start" class="btn" value="Start Game">
         </form>
@@ -44,7 +44,8 @@
             $looser = mysqli_fetch_array($db_looser);           //gets looser of last game
             array_push($array, $looser[0]);
             $_SESSION['order'] = $array;
-            header("Location: gameHome.php");
+            header("Location: test.html");
+            $_SESSION['current_player'] = $array[0];
             
         }
      
