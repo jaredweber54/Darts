@@ -12,7 +12,6 @@ foreach($array as $i){
 }
 echo( " | " .  $current_player);
 echo("<br>");
-echo("Scores:");
 foreach($scoresArr as $i){
     echo($i . " -- ");
 }

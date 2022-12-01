@@ -45,15 +45,14 @@
             array_push($array, $looser[0]);
             $_SESSION['order'] = $array;
             $_SESSION['current_player'] = $array[0];
-            // $sql_insert = "INSERT INTO GAME (ROUND_1) VALUES (NULL)";
-            // $db->query($sql_insert) or die('Sorry, database operation was failed');
+            $sql_insert = "INSERT INTO GAME (LOOSER) VALUES ('JERRY')";
+            $db->query($sql_insert) or die('Sorry, database operation was failed');
             $get_game_id = "SELECT GAME_ID FROM GAME ORDER BY DATE DESC LIMIT 1";
             $db_game_id = $db->query($get_game_id) or die ("failed");
             $game_id = mysqli_fetch_array($db_game_id);
             $_SESSION['game_id'] = $game_id[0];
             $_SESSION['round'] = 1;
-            $scoresArr = array("first");
-            // array_shift($scoresArr);
+            $scoresArr = array("Scores: ");
             $_SESSION['scoresArr'] = $scoresArr;
               header("Location: test.html");
             
