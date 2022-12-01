@@ -39,16 +39,27 @@
             array_shift($array);    //gets rid of the "first" element
             shuffle($array);        //reorders the array for random order
             
-            $get_looser = "SELECT LOOSER FROM GAME ORDER BY DATE LIMIT 1";
+            $get_looser = "SELECT LOOSER FROM GAME ORDER BY DATE DESC LIMIT 1";
             $db_looser = $db->query($get_looser) or die ("failed");
             $looser = mysqli_fetch_array($db_looser);           //gets looser of last game
             array_push($array, $looser[0]);
             $_SESSION['order'] = $array;
-            header("Location: test.html");
             $_SESSION['current_player'] = $array[0];
+            // $sql_insert = "INSERT INTO GAME (ROUND_1) VALUES (NULL)";
+            // $db->query($sql_insert) or die('Sorry, database operation was failed');
+            $get_game_id = "SELECT GAME_ID FROM GAME ORDER BY DATE DESC LIMIT 1";
+            $db_game_id = $db->query($get_game_id) or die ("failed");
+            $game_id = mysqli_fetch_array($db_game_id);
+            $_SESSION['game_id'] = $game_id[0];
+            $_SESSION['round'] = 1;
+            $scoresArr = array("first");
+            // array_shift($scoresArr);
+            $_SESSION['scoresArr'] = $scoresArr;
+              header("Location: test.html");
+            
             
         }
      
-
+        $db->close();
     ?> 
 </html>
