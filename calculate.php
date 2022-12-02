@@ -7,17 +7,17 @@ $db_user = "jaredweber54";       // User: CS344F22
 $db_passwd = "web2022";     // Password: CS344F22
 $db = new mysqli("localhost", $db_user, $db_passwd, $db_name); //creates connection to database
 
-
-
 $text = $_POST['text1'];
 $score = (int)$text;
 $game_id = $_SESSION['game_id'];
 $cur_player = $_SESSION['current_player'];
 $orderArr = $_SESSION['order'];
 $round = $_SESSION['round'];
+$total_score = $_SESSION['total_score'];
 $scoresArr = $_SESSION['scoresArr'];
-$winnerArr = array("first");
-array_shift($winnerArr);
+$winnerArr = $_SESSION['winner'];
+$total_score = $total_score + $score;
+$_SESSION['total_score'] = $total_score;
 array_push($scoresArr, $score);
 $_SESSION['scoresArr'] = $scoresArr;
 
@@ -25,19 +25,15 @@ $_SESSION['scoresArr'] = $scoresArr;
 if ($db->connect_errno > 0) {
     die('Unable to connect to database [' . $db->connect_error . ']');
 } else {
- if(count($scoresArr) == 8){
-    $total_score = 0;
-    foreach($scoresArr as $i){
-        $total_score = $i + $total_score;
-    }
+ if(count($scoresArr) == 7){
     $sql_get_player = "SELECT PLAYER_ID FROM PLAYER WHERE PLAYER_NAME = '$cur_player'";
     $db_player = $db->query($sql_get_player) or die("Failed");
     $player_id = mysqli_fetch_array($db_player);
 
     $sql_insert = "INSERT INTO ROUNDS (PLAYER_ID, GAME_ID, ROUND, THROW_1, THROW_2, THROW_3,
     THROW_4, THROW_5, THROW_6, THROW_7, TOTAL_SCORE)
-    VALUES ($player_id[0],$game_id,$round,$scoresArr[1],$scoresArr[2],
-    $scoresArr[3],$scoresArr[4],$scoresArr[5],$scoresArr[6],$scoresArr[7],$total_score)";
+    VALUES ($player_id[0],$game_id,$round,$scoresArr[0],$scoresArr[1],
+    $scoresArr[2],$scoresArr[3],$scoresArr[4],$scoresArr[5],$scoresArr[6],$total_score)";
     $db->query($sql_insert) or die('Sorry, database operation was failed');
     array_shift($orderArr);
 
@@ -53,9 +49,10 @@ if ($db->connect_errno > 0) {
         while($resultArr = mysqli_fetch_array($db_get_scores, MYSQLI_ASSOC)) { //fetch the query result (w/ results from query) by row and print
             $compArr += [$resultArr['PLAYER_ID'] => $resultArr['TOTAL_SCORE']];
         }
-        print_r($compArr);
         $firstKey = array_key_first($compArr);
-        array_push($winnerArr, $firstKey);
+        $firstInt = (int)$firstKey;
+        array_push($winnerArr, $firstInt);
+        $_SESSION['winner'] = $winnerArr;
         $b = false;
         $orderArr = array("first");
         array_shift($orderArr);
@@ -69,13 +66,31 @@ if ($db->connect_errno > 0) {
             $player_name = mysqli_fetch_array($db_name);
                 array_push($orderArr, $player_name[0]);
         }
+        if(count($orderArr) == 1){
+            echo($orderArr[0] . " Lost!");
+            $sql_get_player = "SELECT PLAYER_ID FROM PLAYER WHERE PLAYER_NAME = '$orderArr[0]'";
+            $db_player = $db->query($sql_get_player) or die("Failed");
+            $player_id = mysqli_fetch_array($db_player);
+            if($round == 2){
+             $sql_game_update = "UPDATE GAME SET ROUND_1 = $winnerArr[0], 
+                                ROUND_2 = $winnerArr[1], LOOSER = $player_id[0]
+                                WHERE GAME_ID = $game_id;";
+            $db->query($sql_game_update) or die("Failed");
+            }
+
+        }
         $orderArr = array_reverse($orderArr);
+        $total_score = 0;
+        $round++;
+        $_SESSION['round'] = $round;
+
     }
+    $total_score = 0;
+    $_SESSION['total_score'] = $total_score;
     $_SESSION['current_player'] = $orderArr[0];
     $_SESSION['order'] = $orderArr;
     $scoresArr = array("Scores: ");
     $_SESSION['scoresArr'] = $scoresArr;
-    $_SESSION['round'] = $round + 1;
 
  }
 }

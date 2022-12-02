@@ -6,14 +6,39 @@ ini_set('display_errors', 1);
 $array = $_SESSION['order'];
 $current_player = $_SESSION['current_player'];
 $scoresArr = $_SESSION['scoresArr'];
+$total_score = $_SESSION['total_score'];
+$dist_from_high = $_SESSION['dist_from_high'];
+$winnerArr = $_SESSION['winner'];
+$high = $_SESSION['high'];
 echo("Order: ");
 foreach($array as $i){
     echo($i . " -- ");
 }
 echo( " | " .  $current_player);
 echo("<br>");
+echo("Scores: ");
 foreach($scoresArr as $i){
     echo($i . " -- ");
 }
+if($total_score > $high && $total_score != 0){
+    $high = $total_score;
+    $_SESSION['high'] = $high;   
+} else{
+    $dist_from_high = $high - $total_score;
+    $_SESSION['dist_from_high'] = $dist_from_high;
+}
+echo("<br>");
+echo("Total: " . $total_score);
+echo("<br>");
+echo("Distance from High Score: " . $dist_from_high );
+echo("<br>");
+echo("High: " . $high);
+echo("<br>");
+echo("Winners: ");
+foreach($winnerArr as $i){
+    echo($i . " -- ");
+}
+
+
 
 ?>
