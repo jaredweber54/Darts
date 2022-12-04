@@ -38,6 +38,7 @@ if ($db->connect_errno > 0) {
     array_shift($orderArr);
 
     if(empty($orderArr)){
+        $count = 0;
         $sql_get_scores = 
         "SELECT PLAYER_ID, TOTAL_SCORE FROM ROUNDS 
         WHERE GAME_ID = $game_id AND ROUND = $round
@@ -48,6 +49,7 @@ if ($db->connect_errno > 0) {
         array_shift($compArr);       
         while($resultArr = mysqli_fetch_array($db_get_scores, MYSQLI_ASSOC)) { //fetch the query result (w/ results from query) by row and print
             $compArr += [$resultArr['PLAYER_ID'] => $resultArr['TOTAL_SCORE']];
+            $count++;
         }
         $firstKey = array_key_first($compArr);
         $firstInt = (int)$firstKey;
@@ -59,6 +61,9 @@ if ($db->connect_errno > 0) {
         foreach ($compArr as $key => $value){
             if(!$b){
                 $b = true;
+                continue;
+            }
+            if($value == 69 && $count > 3){
                 continue;
             }
             $sql_get_name = "SELECT PLAYER_NAME FROM PLAYER WHERE PLAYER_ID = '$key'";
