@@ -71,6 +71,8 @@
             $dist_from_high = 0;
             $_SESSION['high'] = $high = 0;
             $_SESSION['dist_from_high'] = $dist_from_high;
+            $dist_six = 0;
+            $_SESSION['dist_six'] = $dist_six;
             $winnerArr = array(1);
             array_shift($winnerArr);
             $_SESSION['winner'] = $winnerArr;

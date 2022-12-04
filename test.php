@@ -9,6 +9,7 @@ $scoresArr = $_SESSION['scoresArr'];
 $total_score = $_SESSION['total_score'];
 $dist_from_high = $_SESSION['dist_from_high'];
 $winnerArr = $_SESSION['winner'];
+$dist_six = $_SESSION['dist_six'];
 $high = $_SESSION['high'];
 echo("Order: ");
 foreach($array as $i){
@@ -34,10 +35,9 @@ echo("Distance from High Score: " . $dist_from_high );
 echo("<br>");
 echo("High: " . $high);
 echo("<br>");
-echo("Winners: ");
-foreach($winnerArr as $i){
-    echo($i . " -- ");
-}
+$dist_six = 69 - $total_score;
+$_SESSION['dist_six'] = $dist_six;
+echo("Distance from 69: " . $dist_six);
 
 
 

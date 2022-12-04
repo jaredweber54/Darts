@@ -34,7 +34,7 @@ if ($db->connect_errno > 0) {
     THROW_4, THROW_5, THROW_6, THROW_7, TOTAL_SCORE)
     VALUES ($player_id[0],$game_id,$round,$scoresArr[0],$scoresArr[1],
     $scoresArr[2],$scoresArr[3],$scoresArr[4],$scoresArr[5],$scoresArr[6],$total_score)";
-    $db->query($sql_insert) or die('Sorry, database operation was failed');
+    $db->query($sql_insert) or die('Sorry, database operation was failed: SCORES');
     array_shift($orderArr);
 
     if(empty($orderArr)){
@@ -76,6 +76,29 @@ if ($db->connect_errno > 0) {
                                 ROUND_2 = $winnerArr[1], LOOSER = $player_id[0]
                                 WHERE GAME_ID = $game_id;";
             $db->query($sql_game_update) or die("Failed");
+            } else if($round == 3){
+                $sql_game_update = "UPDATE GAME SET ROUND_1 = $winnerArr[0], 
+                                ROUND_2 = $winnerArr[1], 
+                                ROUND_3 = $winnerArr[2],
+                                LOOSER = $player_id[0]
+                                WHERE GAME_ID = $game_id;";
+            $db->query($sql_game_update) or die("Failed");
+            } else if($round == 4){
+                $sql_game_update = "UPDATE GAME SET ROUND_1 = $winnerArr[0], 
+                                ROUND_2 = $winnerArr[1], 
+                                ROUND_3 = $winnerArr[2],
+                                ROUND_4 = $winnerArr[3],
+                                LOOSER = $player_id[0]
+                                WHERE GAME_ID = $game_id;";
+            } else if($round == 5){
+                $sql_game_update = "UPDATE GAME SET ROUND_1 = $winnerArr[0], 
+                ROUND_2 = $winnerArr[1], 
+                ROUND_3 = $winnerArr[2],
+                ROUND_4 = $winnerArr[3],
+                ROUND_5 = $winnerArr[4],
+                LOOSER = $player_id[0]
+                WHERE GAME_ID = $game_id;";
+
             }
 
         }
@@ -90,6 +113,7 @@ if ($db->connect_errno > 0) {
     $_SESSION['current_player'] = $orderArr[0];
     $_SESSION['order'] = $orderArr;
     $scoresArr = array("Scores: ");
+    array_shift($scoresArr);
     $_SESSION['scoresArr'] = $scoresArr;
 
  }
@@ -117,7 +141,6 @@ if ($db->connect_errno > 0) {
 
  $db->close();
 ?>  
-
 
 
 
