@@ -90,7 +90,7 @@
             array_shift($winnerArr);
             $_SESSION['winner'] = $winnerArr;
 
-              header("Location: test.html");
+              header("Location: home.html");
             
             
         }

@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="author" content="Jared">
     <link rel="stylesheet" href="styles.css">
-    <title>Message Input</title>
+    <title>Game Home</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- https://developers.google.com/speed/libraries#jquery -->
 </head>
 <body>
-    <h1>Game Home</h1>
     <p id="para"></p>
     <form id = "calc">
         <input type="text" id="txt" name="text1" class="text">
@@ -19,7 +18,7 @@
         <input type="submit" name = "btn1" class="btn"value="Submit">
     </form>
     <br>
-    <form id = "delete">
+    <form id = "delete" class = "del">
         <input type = "submit" name = "del" class = "delete" value = "Delete">
     </form>
 
@@ -69,7 +68,7 @@
                 document.getElementById("para").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET", "test.php", true);
+        xmlhttp.open("GET", "load.php", true);
         xmlhttp.send();
         
 

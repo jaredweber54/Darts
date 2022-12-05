@@ -26,6 +26,9 @@ $_SESSION['scoresArr'] = $scoresArr;
 if ($db->connect_errno > 0) {
     die('Unable to connect to database [' . $db->connect_error . ']');
 } else {
+    if(count($scoresArr == 7)){
+        echo("Press Enter to Submit");
+    }
     if(count($scoresArr) == 8){
     $sql_get_player = "SELECT PLAYER_ID FROM PLAYER WHERE PLAYER_NAME = '$cur_player'";
     $db_player = $db->query($sql_get_player) or die("Failed");
