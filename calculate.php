@@ -18,6 +18,7 @@ $scoresArr = $_SESSION['scoresArr'];
 $winnerArr = $_SESSION['winner'];
 $total_score = $total_score + $score;
 $_SESSION['total_score'] = $total_score;
+
 array_push($scoresArr, $score);
 $_SESSION['scoresArr'] = $scoresArr;
 
@@ -25,7 +26,7 @@ $_SESSION['scoresArr'] = $scoresArr;
 if ($db->connect_errno > 0) {
     die('Unable to connect to database [' . $db->connect_error . ']');
 } else {
- if(count($scoresArr) == 7){
+    if(count($scoresArr) == 8){
     $sql_get_player = "SELECT PLAYER_ID FROM PLAYER WHERE PLAYER_NAME = '$cur_player'";
     $db_player = $db->query($sql_get_player) or die("Failed");
     $player_id = mysqli_fetch_array($db_player);
@@ -34,6 +35,7 @@ if ($db->connect_errno > 0) {
     THROW_4, THROW_5, THROW_6, THROW_7, TOTAL_SCORE)
     VALUES ($player_id[0],$game_id,$round,$scoresArr[0],$scoresArr[1],
     $scoresArr[2],$scoresArr[3],$scoresArr[4],$scoresArr[5],$scoresArr[6],$total_score)";
+    $_SESSION['total'] = $total_score;
     $db->query($sql_insert) or die('Sorry, database operation was failed: SCORES');
     array_shift($orderArr);
 
@@ -146,6 +148,5 @@ if ($db->connect_errno > 0) {
 
  $db->close();
 ?>  
-
 
 
