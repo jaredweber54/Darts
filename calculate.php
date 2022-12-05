@@ -41,6 +41,8 @@ if ($db->connect_errno > 0) {
 
     if(empty($orderArr)){
         $count = 0;
+        $high = 0;
+        $_SESSION['high'] = $high;
         $sql_get_scores = 
         "SELECT PLAYER_ID, TOTAL_SCORE FROM ROUNDS 
         WHERE GAME_ID = $game_id AND ROUND = $round
