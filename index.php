@@ -51,10 +51,9 @@
                     if($selected == $looser_name[0]){
                         $flag = true;
                         continue;
-                    } else{
+                    } else {
                      array_push($array, $selected);
                     }
-             
             } 
         }
             array_shift($array);    //gets rid of the "first" element

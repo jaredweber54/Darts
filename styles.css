@@ -40,3 +40,6 @@
     height: 100px;
     background-color: rgb(104, 0, 163);
 }
+.delete{
+    background-color: red;
+}
