@@ -48,6 +48,15 @@
            if(!empty($_POST['check_list'])){
                 // Loop to store and display values of individual checked checkbox.
                  foreach($_POST['check_list'] as $selected){
+                    $sql_select = "SELECT GAMES_PLAYED FROM PPLAYER WHERE PLAYER_NAME = '$selected'";
+                    $db_games_played = $db->query($sql_select) or die ("failed select");
+                    $no_games = mysqli_fetch_array($db_games_played);
+                    $games = (int)$no_games[0];
+                    $games++;
+                    $sql_game_update = "UPDATE PPLAYER SET GAMES_PLAYED = $games 
+                    WHERE PLAYER_NAME = '$selected'";
+                     $db->query($sql_game_update) or die("Failed update");
+
                     if($selected == $looser_name[0]){
                         $flag = true;
                         continue;
@@ -90,7 +99,7 @@
             array_shift($winnerArr);
             $_SESSION['winner'] = $winnerArr;
 
-              header("Location: home.html");
+            header("Location: home.html");
             
             
         }

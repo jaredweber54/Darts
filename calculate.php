@@ -104,6 +104,10 @@ if ($db->connect_errno > 0) {
                 continue;
             }
             if($value == 69 && $count > 3){
+                echo($key);
+                $sql_game_update = "UPDATE PGAME SET SIX_NINE = $key
+                WHERE GAME_ID = $game_id;";
+                 $db->query($sql_game_update) or die("Failed six nine");
                 continue;
             }
             $sql_get_name = "SELECT PLAYER_NAME FROM PPLAYER WHERE PLAYER_ID = '$key'"; //UPDATE HERE
@@ -143,7 +147,7 @@ if ($db->connect_errno > 0) {
                 ROUND_5 = $winnerArr[4],
                 LOOSER = $player_id[0]
                 WHERE GAME_ID = $game_id;";
-
+                 $db->query($sql_game_update) or die("Failed");
             }
 
         }
