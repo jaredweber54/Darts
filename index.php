@@ -23,19 +23,12 @@
         <input type="submit" name="start" class="btn" value="Start Game">
         </form>
     </body>
-    <style>
-        
-    </style>
-
-  
      <?php
         session_start();
         $db_name = "DARTS";              // Database: DARTS
         $db_user = "jaredweber54";       // User: jaredweber54
         $db_passwd = "web2022";  
         $db = new mysqli("localhost", $db_user, $db_passwd, $db_name);
-
-
         if(isset($_POST['start'])){
             $array = array("first");
             $get_looser = "SELECT LOOSER FROM PGAME ORDER BY DATE DESC LIMIT 1"; //UPDATE HERE
@@ -56,25 +49,19 @@
                     $sql_game_update = "UPDATE PPLAYER SET GAMES_PLAYED = $games 
                     WHERE PLAYER_NAME = '$selected'";
                      $db->query($sql_game_update) or die("Failed update");
-
                     if($selected == $looser_name[0]){
                         $flag = true;
                         continue;
                     } else {
-                     array_push($array, $selected);
-                    }
-            } 
-        }
+                        array_push($array, $selected);   
+                    } 
+                } 
+            }
             array_shift($array);    //gets rid of the "first" element
             shuffle($array);        //reorders the array for random order
             if($flag){
                 array_push($array, $looser_name[0]);
             }
-           
-            
-            
-          
-            
             $sql_insert = "INSERT INTO PGAME (LOOSER) VALUES (1)"; //UPDATE HERE
             $db->query($sql_insert) or die('Sorry, database operation was failed');
             $_SESSION['order'] = $array;
@@ -98,12 +85,8 @@
             $winnerArr = array(1);
             array_shift($winnerArr);
             $_SESSION['winner'] = $winnerArr;
-
             header("Location: home.html");
-            
-            
         }
-     
         $db->close();
     ?> 
 </html>

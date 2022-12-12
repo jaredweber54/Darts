@@ -1,5 +1,4 @@
 <?php
-// Report all error information on the webpage
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -37,7 +36,4 @@ echo("<br>");
 $dist_six = 69 - $total_score;
 $_SESSION['dist_six'] = $dist_six;
 echo("Distance from 69: " . $dist_six);
-
-
-
 ?>

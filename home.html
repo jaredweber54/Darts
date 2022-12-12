@@ -21,38 +21,26 @@
     <form id = "delete" class = "del">
         <input type = "submit" name = "del" class = "delete" value = "Delete">
     </form>
-
     <br>
     <p id = "score"></p>
-
-  
-
     <script>
-
         $("#delete").submit(
             function(e){
                 // prevent jQuery refresh the whole page after appending the new element. See the following page for more detail
                 // https://stackoverflow.com/questions/31357050/jquerypage-refreshes-after-appending-html-with-html
                 e.preventDefault();
-                
                 $.post("delete.php", $(this).serialize(),
                     function(data, status){ // callback function
-                        $("#score").text(data);                  //TODO fix so you are able to <br> line
+                        $("#score").text(data);                 
                     }
                 );
             }
         );
-        
-
-
-
-
         $("#calc").submit(
             function(e){
                 // prevent jQuery refresh the whole page after appending the new element. See the following page for more detail
                 // https://stackoverflow.com/questions/31357050/jquerypage-refreshes-after-appending-html-with-html
-                e.preventDefault();
-                
+                e.preventDefault(); 
                 $.post("calculate.php", $(this).serialize(),
                     function(data, status){ // callback function
                         $("#score").text(data);                  //TODO fix so you are able to <br> line
@@ -60,8 +48,7 @@
                 );
             }
         );
-
-       function load(){
+        function load(){
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -70,11 +57,8 @@
         };
         xmlhttp.open("GET", "load.php", true);
         xmlhttp.send();
-        
-
        }
        setInterval(load, 250);
-
     </script>
 </body>
 </html>
