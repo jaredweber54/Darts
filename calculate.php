@@ -16,6 +16,37 @@ $round = $_SESSION['round'];
 $total_score = $_SESSION['total_score'];
 $scoresArr = $_SESSION['scoresArr'];
 $winnerArr = $_SESSION['winner'];
+
+$last = substr($text, -1);
+$length = strlen($text);
+if($last == "D"){
+    if($length == 2){
+        $score = (int)substr($text,0,1);
+        $score = $score * 2;
+    } else {
+        $score = (int)substr($text,0,2);
+        $score = $score * 2;
+    }
+
+} else if($last = "T"){
+    if($length == 2){
+        $score = (int)substr($text,0,1);
+        $score = $score * 3;
+    } else {
+        $score = (int)substr($text,0,2);
+        $score = $score * 3;
+    }
+
+} else if($last = "B"){
+    $score = (int)substr($text,0,2);
+
+} else if($last = "X"){
+    $score = (int)substr($text,0,2);
+} else{
+    $score = (int)$text;
+}
+
+
 $total_score = $total_score + $score;
 $_SESSION['total_score'] = $total_score;
 
@@ -26,7 +57,6 @@ $_SESSION['scoresArr'] = $scoresArr;
 if ($db->connect_errno > 0) {
     die('Unable to connect to database [' . $db->connect_error . ']');
 } else {
-    echo(count($scoresArr));
     if(count($scoresArr) == 8){
     $sql_get_player = "SELECT PLAYER_ID FROM PPLAYER WHERE PLAYER_NAME = '$cur_player'";
     $db_player = $db->query($sql_get_player) or die("Failed");
