@@ -28,7 +28,7 @@ if($last == "D"){
         $score = $score * 2;
     }
 
-} else if($last = "T"){
+} else if($last == "T"){
     if($length == 2){
         $score = (int)substr($text,0,1);
         $score = $score * 3;
@@ -37,10 +37,10 @@ if($last == "D"){
         $score = $score * 3;
     }
 
-} else if($last = "B"){
+} else if($last == "B"){
     $score = (int)substr($text,0,2);
 
-} else if($last = "X"){
+} else if($last == "X"){
     $score = (int)substr($text,0,2);
 } else{
     $score = (int)$text;
