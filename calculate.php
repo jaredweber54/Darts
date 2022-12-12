@@ -28,7 +28,7 @@ if($last == "D"){
         $score = $score * 2;
     }
 
-} else if($last = "T"){
+} else if($last == "T"){
     if($length == 2){
         $score = (int)substr($text,0,1);
         $score = $score * 3;
@@ -37,10 +37,10 @@ if($last == "D"){
         $score = $score * 3;
     }
 
-} else if($last = "B"){
+} else if($last == "B"){
     $score = (int)substr($text,0,2);
 
-} else if($last = "X"){
+} else if($last == "X"){
     $score = (int)substr($text,0,2);
 } else{
     $score = (int)$text;
@@ -58,7 +58,6 @@ if ($db->connect_errno > 0) {
     die('Unable to connect to database [' . $db->connect_error . ']');
 } else {
     if(count($scoresArr) == 8){
-        echo(count($scoresArr));
     $sql_get_player = "SELECT PLAYER_ID FROM PPLAYER WHERE PLAYER_NAME = '$cur_player'";//UPDATE HERE
     $db_player = $db->query($sql_get_player) or die("Failed");
     $player_id = mysqli_fetch_array($db_player);
@@ -104,9 +103,10 @@ if ($db->connect_errno > 0) {
                 continue;
             }
             if($value == 69 && $count > 3){
-                echo($key);
-                $sql_game_update = "UPDATE PGAME SET SIX_NINE = $key
-                WHERE GAME_ID = $game_id;";
+                $sql_game_update = "UPDATE PROUNDS SET SIX_NINE = 'Y'
+                WHERE GAME_ID = $game_id
+                AND PLAYER_ID = $key
+                AND ROUND = $round;";
                  $db->query($sql_game_update) or die("Failed six nine");
                 continue;
             }
