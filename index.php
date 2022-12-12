@@ -38,10 +38,10 @@
 
         if(isset($_POST['start'])){
             $array = array("first");
-            $get_looser = "SELECT LOOSER FROM GAME ORDER BY DATE DESC LIMIT 1";
+            $get_looser = "SELECT LOOSER FROM PGAME ORDER BY DATE DESC LIMIT 1";
             $db_looser = $db->query($get_looser) or die ("failed");
             $looser = mysqli_fetch_array($db_looser);           //gets looser of last game
-            $get_looser_name = "SELECT PLAYER_NAME FROM PLAYER WHERE PLAYER_ID = $looser[0];";
+            $get_looser_name = "SELECT PLAYER_NAME FROM PPLAYER WHERE PLAYER_ID = $looser[0];";
             $db_looser_name = $db->query($get_looser_name) or die ("failed");
             $looser_name = mysqli_fetch_array($db_looser_name);
             $flag = false;
@@ -66,11 +66,11 @@
             
           
             
-            $sql_insert = "INSERT INTO GAME (LOOSER) VALUES (1)";
+            $sql_insert = "INSERT INTO PGAME (LOOSER) VALUES (1)";
             $db->query($sql_insert) or die('Sorry, database operation was failed');
             $_SESSION['order'] = $array;
             $_SESSION['current_player'] = $array[0];
-            $get_game_id = "SELECT GAME_ID FROM GAME ORDER BY DATE DESC LIMIT 1";
+            $get_game_id = "SELECT GAME_ID FROM PGAME ORDER BY DATE DESC LIMIT 1";
             $db_game_id = $db->query($get_game_id) or die ("failed");
             $game_id = mysqli_fetch_array($db_game_id);
             $_SESSION['game_id'] = $game_id[0];
