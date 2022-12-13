@@ -135,27 +135,6 @@ if ($db->connect_errno > 0) {
     $_SESSION['scoresArr'] = $scoresArr;
  }
 }
-
-
-
-
-
-
-
-
-
-// $sql_get_player = "SELECT PLAYER_ID FROM PLAYER WHERE PLAYER_NAME = '$cur_player'";
-// $db_player = $db->query($sql_get_player) or die("Failed");
-// $player_id = mysqli_fetch_array($db_player);
-//     $sql_insert = "INSERT INTO ROUNDS (PLAYER_ID, GAME_ID,ROUND, THROW_1)
-//      VALUES ($player_id[0], $game_id, $round, $int)";
-//     $db->query($sql_insert) or die('Sorry, database operation was failed');
-// // $sql_insert = "UPDATE ROUNDS SET THROW_2 = $int
-// //                WHERE PLAYER_ID = $player_id[0] AND GAME_ID = 1";
-// //     $db->query($sql_insert) or die('Sorry, database operation was failed');
-
-
-
  $db->close();
 ?>  
 
